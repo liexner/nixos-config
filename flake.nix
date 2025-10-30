@@ -4,9 +4,13 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
     nixos-wsl.url = "github:nix-community/NixOS-WSL";
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, nixos-wsl, ... }@inputs:
+  outputs = { self, nixpkgs, nixos-wsl, disko, ... }@inputs:
   let
     system = "x86_64-linux";
     lib = nixpkgs.lib;
@@ -17,6 +21,15 @@
         modules = [
           nixos-wsl.nixosModules.default
           ./hosts/wsl.nix
+        ];
+      };
+
+      server = lib.nixosSystem {
+        inherit system;
+        modules = [
+          disko.nixosModules.disko
+          ./hosts/server/configuration.nix
+          ./hosts/server/disko.nix
         ];
       };
     };
