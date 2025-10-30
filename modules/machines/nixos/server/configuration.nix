@@ -17,7 +17,6 @@
   # Locale
   i18n.defaultLocale = "en_US.UTF-8";
 
-  # Server-specific packages
   environment.systemPackages = with pkgs; [
     curl
     vim
