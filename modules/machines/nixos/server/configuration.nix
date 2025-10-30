@@ -17,11 +17,9 @@
   # Locale
   i18n.defaultLocale = "en_US.UTF-8";
 
-  # Minimal system packages
+  # Server-specific packages
   environment.systemPackages = with pkgs; [
-    wget
     curl
-    git
     vim
     htop
   ];
@@ -39,9 +37,4 @@
 
   # Allow unfree packages if needed
   nixpkgs.config.allowUnfree = true;
-
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken.
-  system.stateVersion = "25.05";
 }
