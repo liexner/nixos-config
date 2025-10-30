@@ -1,7 +1,9 @@
 { config, lib, pkgs, ... }:
 
 {
-  imports = [ ];
+  imports = [
+    ../../../homelab/hass
+  ];
 
   # Boot configuration
   boot.loader.systemd-boot.enable = true;
