@@ -6,5 +6,8 @@
     openFirewall = true;
     configDir = "/var/lib/hass";
     configWritable = true;
+    config = {
+      default_config = {};
+    };
   };
 }

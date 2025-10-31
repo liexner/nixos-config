@@ -20,8 +20,8 @@
         inherit system;
         modules = [
           nixos-wsl.nixosModules.default
-          ./modules/machines/nixos/_common/default.nix
-          ./modules/machines/nixos/wsl/configuration.nix
+          ./hosts/_common/default.nix
+          ./hosts/wsl/configuration.nix
         ];
       };
 
@@ -29,9 +29,9 @@
         inherit system;
         modules = [
           disko.nixosModules.disko
-          ./modules/machines/nixos/_common/default.nix
-          ./modules/machines/nixos/server/configuration.nix
-          ./modules/machines/nixos/server/disko.nix
+          ./hosts/_common/default.nix
+          ./hosts/server/configuration.nix
+          ./hosts/server/disko.nix
         ];
       };
     };
