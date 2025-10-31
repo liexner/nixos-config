@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ../../../homelab/hass
+    # ../../../homelab/hass  # Commented out - path outside flake
   ];
 
   # Boot configuration

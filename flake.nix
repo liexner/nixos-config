@@ -2,14 +2,11 @@
   description = "My multi-host NixOS configurations";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixos-wsl.url = "github:nix-community/NixOS-WSL";
+    colmena.url = "github:zhaofengli/colmena";
     disko = {
       url = "github:nix-community/disko";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    colmena = {
-      url = "github:zhaofengli/colmena";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -40,17 +37,15 @@
       };
     };
 
-    colmena = {
+    colmenaHive = colmena.lib.makeHive {
       meta = {
         nixpkgs = import nixpkgs {
-          system = "x86_64-linux";
+        system = "x86_64-linux";
         };
       };
 
-      # Deploy your server host
-      server = { name, nodes, ... }: {
+      server1 = { name, nodes, ... }: {
         deployment = {
-          # Change these to match your server's actual details:
           targetHost = "192.168.50.21";  # e.g., "192.168.1.100" or "server.example.com"
           targetPort = 22;                             # SSH port
           targetUser = "liexner";                      # SSH user
