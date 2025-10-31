@@ -5,11 +5,11 @@
   wsl.defaultUser = "liexner";
 
   environment.systemPackages = with pkgs; [
+    inputs.colmena.packages.${pkgs.system}.colmena
     neofetch
     go
     bun
     nixos-anywhere
-    colmena
   ];
 
   # Define user account

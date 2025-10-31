@@ -4,7 +4,10 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixos-wsl.url = "github:nix-community/NixOS-WSL";
-    colmena.url = "github:zhaofengli/colmena";
+    colmena = {
+      url = "github:zhaofengli/colmena";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -26,15 +29,15 @@
         ];
       };
 
-      server = lib.nixosSystem {
-        inherit system;
-        modules = [
-          disko.nixosModules.disko
-          ./hosts/_common/default.nix
-          ./hosts/server/configuration.nix
-          ./hosts/server/disko.nix
-        ];
-      };
+      # server = lib.nixosSystem {
+      #   inherit system;
+      #   modules = [
+      #     disko.nixosModules.disko
+      #     ./hosts/_common/default.nix
+      #     ./hosts/server/configuration.nix
+      #     ./hosts/server/disko.nix
+      #   ];
+      # };
     };
 
     colmenaHive = colmena.lib.makeHive {
@@ -46,9 +49,9 @@
 
       server1 = { name, nodes, ... }: {
         deployment = {
-          targetHost = "192.168.50.21";  # e.g., "192.168.1.100" or "server.example.com"
-          targetPort = 22;                             # SSH port
-          targetUser = "liexner";                      # SSH user
+          targetHost = "192.168.50.21";
+          targetPort = 22;
+          targetUser = "liexner";
         };
 
         imports = [
