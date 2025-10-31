@@ -9,6 +9,7 @@
     go
     bun
     nixos-anywhere
+    colmena
   ];
 
   # Define user account
