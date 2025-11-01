@@ -8,7 +8,6 @@
     backend = "podman";
     containers.homeassistant = {
       volumes = [ "home-assistant:/config" ];
-      # environment.TZ = "Europe/Berlin";
       image = "ghcr.io/home-assistant/home-assistant:stable";
       extraOptions = [
         "--network=host"

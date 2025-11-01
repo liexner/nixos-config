@@ -49,9 +49,9 @@
         };
       };
 
-      server1 = { name, nodes, ... }: {
+      elitedesk = { name, nodes, ... }: {
         deployment = {
-          targetHost = "192.168.50.21";
+          targetHost = "192.168.50.9";
           targetPort = 22;
           targetUser = "liexner";
         };
@@ -59,8 +59,8 @@
         imports = [
           disko.nixosModules.disko
           ./hosts/_common/default.nix
-          ./hosts/server/configuration.nix
-          ./hosts/server/disko.nix
+          ./hosts/elitedesk/configuration.nix
+          ./hosts/elitedesk/disko.nix
         ];
       };
     };
