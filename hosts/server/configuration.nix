@@ -2,8 +2,12 @@
 
 {
   imports = [
-    # ../../../homelab/hass  # Commented out - path outside flake
+    ../../modules/services/home-assistant.nix
   ];
+
+
+
+
 
   # Boot configuration
   boot.loader.systemd-boot.enable = true;
@@ -13,10 +17,7 @@
   networking.hostName = "server";
   networking.networkmanager.enable = true;
 
-  # Time zone
   time.timeZone = "UTC";
-
-  # Locale
   i18n.defaultLocale = "en_US.UTF-8";
 
   environment.systemPackages = with pkgs; [
@@ -24,6 +25,11 @@
     vim
     htop
   ];
+
+  virtualisation.podman = {
+    enable = true;
+    dockerCompat = true;
+  };
 
   # Enable SSH
   services.openssh.enable = true;
