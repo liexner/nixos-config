@@ -22,6 +22,7 @@
     nixosConfigurations = {
       wsl = lib.nixosSystem {
         inherit system;
+        specialArgs = { inherit inputs; };
         modules = [
           nixos-wsl.nixosModules.default
           ./hosts/_common/default.nix
@@ -29,18 +30,19 @@
         ];
       };
 
-      # server = lib.nixosSystem {
-      #   inherit system;
-      #   modules = [
-      #     disko.nixosModules.disko
-      #     ./hosts/_common/default.nix
-      #     ./hosts/server/configuration.nix
-      #     ./hosts/server/disko.nix
-      #   ];
-      # };
+      server = lib.nixosSystem {
+        inherit system;
+        modules = [
+          disko.nixosModules.disko
+          ./hosts/_common/default.nix
+          ./hosts/server/configuration.nix
+          ./hosts/server/disko.nix
+        ];
+      };
     };
 
     colmenaHive = colmena.lib.makeHive {
+
       meta = {
         nixpkgs = import nixpkgs {
         system = "x86_64-linux";
