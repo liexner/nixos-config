@@ -5,6 +5,7 @@
   environment.systemPackages = with pkgs; [
     wget
     git
+    curl
   ];
 
   security.sudo.wheelNeedsPassword = false;

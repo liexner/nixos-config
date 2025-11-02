@@ -11,24 +11,10 @@
       image = "ghcr.io/home-assistant/home-assistant:stable";
       extraOptions = [
         "--network=host"
-        # Use by-id path for stability
-        # "--device=/dev/serial/by-id/YOUR-DEVICE-ID"
-        # Or pass entire USB bus if you have multiple devices
-        # "--device=/dev/bus/usb"
+        "--device=/dev/serial/by-id/usb-dresden_elektronik_ingenieurtechnik_GmbH_ConBee_II_DE2480395-if00"
       ];
     };
   };
-
-  # services.home-assistant = {
-  #   enable = true;
-  #   openFirewall = true;
-  #   configDir = "/var/lib/hass";
-  #   configWritable = true;
-  #   config = {
-  #     default_config = {};
-  #   };
-  # };
-  #
 
 
 }
