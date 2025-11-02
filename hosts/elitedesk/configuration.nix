@@ -3,6 +3,7 @@
 {
   imports = [
     ../../modules/services/home-assistant.nix
+    ../../modules/services/newt.nix
   ];
 
   # Boot configuration
@@ -42,4 +43,18 @@
   };
 
   nixpkgs.config.allowUnfree = true;
+
+
+  sops.secrets = {
+    newt_env = {
+      source = ./secrets/global.yaml;
+      keys = [ "newt.NEWT_ID" "newt.NEWT_SECRET" ];
+      outputPath = "/etc/newt.env";
+      format = "env";
+    };
+  };
+
+  services.newt.environmentFile = "/etc/newt.env";
+
+
 }
