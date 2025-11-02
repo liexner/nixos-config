@@ -6,6 +6,8 @@
     ../../modules/services/newt.nix
   ];
 
+  nixpkgs.config.allowUnfree = true;
+
   # Boot configuration
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -41,20 +43,5 @@
       "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDVKG/eEFh3f9vjissH/POclGm1/3W4RdlCOz6yHPfb/PlWKO2Sppda/3Lseq8qx+9P9IED3x1ExcewbvF9L9uPKKaGSgbBmesyjevD6NaU9Z/UpEdXYNTImTGqB/W4bMMWIUVmglyNcgtbzjhzsk8YvQNWuZFtHauRy6pUmmhv0ortvdlE1oRAZ5Z61xogBPoYygaxoYPKJhqQkSMJfJnKtfXs5JvjNeK/o5Pw/2r1fJICSaW7I8mXb1Zju9U86Ar28SoVMNsKC85dT0dRUSHH4Mg9jDLK8ICi4sG/RA9BsmIbJOB26F0b85ycUzm4mPCqPm5kWtuyScUOne+WwxJ73B+46Lv3N76Zhg185FZOOZLfR5BJ275gSedsjvq9EZH5BBoHhMoRHf0e3JyQaKcuqPwPc69tgwmTXIJhk5Bxh8kpasjDEEsVuD4VxEL6o8Tl9QJcnqJIgJBUAnsn2TDWKZ+3FXuqrc5zEnx9ymmhu9Txxvu0C8APlsF9kpGn4XE= linusexner@Linuss-MacBook-Air.local"
     ];
   };
-
-  nixpkgs.config.allowUnfree = true;
-
-
-  sops.secrets = {
-    newt_env = {
-      source = ./secrets/global.yaml;
-      keys = [ "newt.NEWT_ID" "newt.NEWT_SECRET" ];
-      outputPath = "/etc/newt.env";
-      format = "env";
-    };
-  };
-
-  services.newt.environmentFile = "/etc/newt.env";
-
 
 }

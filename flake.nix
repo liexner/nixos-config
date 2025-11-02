@@ -4,17 +4,18 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixos-wsl.url = "github:nix-community/NixOS-WSL";
-    sops-nix.url = "github:Mic92/sops-nix";
+    agenix.url = "github:ryantm/agenix";
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = { self, nixpkgs, nixos-wsl, disko, sops-nix, ... }@inputs:
+  outputs = { self, nixpkgs, nixos-wsl, disko, agenix, ... }@inputs:
     let
       system = "x86_64-linux";
       lib = nixpkgs.lib;
+      secrets = ./secrets;
     in
     {
       nixosConfigurations = {
@@ -24,6 +25,7 @@
           specialArgs = { inherit inputs; };
           modules = [
             nixos-wsl.nixosModules.default
+            agenix.nixosModules.default
             ./hosts/_common/default.nix
             ./hosts/wsl/configuration.nix
           ];
@@ -33,7 +35,7 @@
           inherit system;
           modules = [
             disko.nixosModules.disko
-            sops-nix.nixosModules.sops
+            agenix.nixosModules.default
             ./hosts/_common/default.nix
             ./hosts/elitedesk/configuration.nix
             ./hosts/elitedesk/disko.nix
