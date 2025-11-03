@@ -20,14 +20,11 @@
     {
       nixosConfigurations = {
 
-        wsl = lib.nixosSystem {
+        tower = lib.nixosSystem {
           inherit system;
-          specialArgs = { inherit inputs; };
           modules = [
-            nixos-wsl.nixosModules.default
-            agenix.nixosModules.default
             ./hosts/_common/default.nix
-            ./hosts/wsl/configuration.nix
+            ./hosts/tower/configuration.nix
           ];
         };
 
@@ -41,6 +38,18 @@
             ./hosts/elitedesk/disko.nix
           ];
         };
+
+        wsl = lib.nixosSystem {
+          inherit system;
+          specialArgs = { inherit inputs; };
+          modules = [
+            nixos-wsl.nixosModules.default
+            agenix.nixosModules.default
+            ./hosts/_common/default.nix
+            ./hosts/wsl/configuration.nix
+          ];
+        };
+
 
 
       };

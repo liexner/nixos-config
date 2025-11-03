@@ -6,7 +6,6 @@
     ../../modules/services/newt.nix
   ];
 
-  nixpkgs.config.allowUnfree = true;
 
   # Boot configuration
   boot.loader.systemd-boot.enable = true;
@@ -32,6 +31,8 @@
   # Enable SSH
   services.openssh.enable = true;
   services.openssh.settings.PermitRootLogin = "yes";
+
+  security.sudo.wheelNeedsPassword = false;
 
   # Define a user account
   users.users.liexner = {
