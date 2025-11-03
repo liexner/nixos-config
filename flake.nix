@@ -3,6 +3,10 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nixos-wsl.url = "github:nix-community/NixOS-WSL";
     agenix.url = "github:ryantm/agenix";
     disko = {

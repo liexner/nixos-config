@@ -43,8 +43,8 @@
   services.xserver.enable = true;
 
   # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
+  services.desktopManager.gnome.enable = true;
+  services.displayManager.gdm.enable = true;
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -87,39 +87,36 @@
     ];
   };
 
-  # Install firefox.
   programs.firefox.enable = true;
 
-  # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
   environment.systemPackages = with pkgs; [
-  #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  #  wget
    signal-desktop
    git
    zed-editor
+   spotify
+   vscode
   ];
 
-  hardware.opengl.enable = true;
-  hardware.opengl.driSupport32Bit = true;
 
-  services.xserver.videoDrivers = [ "nvidia" ];
 
-  hardware.opengl.extraPackages = with pkgs; [
+  hardware.graphics.enable = true;
+  hardware.graphics.enable32Bit = true;
+  hardware.graphics.extraPackages32 = with pkgs.pkgsi686Linux; [
+    vulkan-tools
+  ];
+  hardware.graphics.extraPackages = with pkgs; [
     vulkan-tools
     vulkan-validation-layers
   ];
 
-  hardware.opengl.extraPackages32 = with pkgs.pkgsi686Linux; [
-    vulkan-tools
-  ];
+  services.xserver.videoDrivers = [ "nvidia" ];
+
 
   hardware.nvidia = {
     modesetting.enable = true;
-    powerManagement.eFnable = false;
+    powerManagement.enable = false;
     open = false;
     nvidiaSettings = true;
     package = config.boot.kernelPackages.nvidiaPackages.production;
