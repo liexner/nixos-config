@@ -15,9 +15,6 @@
   networking.hostName = "elitedesk";
   networking.networkmanager.enable = true;
 
-  time.timeZone = "UTC";
-  i18n.defaultLocale = "en_US.UTF-8";
-
   environment.systemPackages = with pkgs; [
     vim
     htop
