@@ -10,7 +10,10 @@ in
     builtins.map (name: lib.nameValuePair name (
       self.inputs.nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        specialArgs = { inherit (self) inputs; };
+        specialArgs = {
+          inherit (self) inputs;
+
+        };
         modules = [
           self.inputs.disko.nixosModules.disko
           self.inputs.agenix.nixosModules.default

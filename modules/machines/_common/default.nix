@@ -13,7 +13,7 @@ in
         "networkmanager"
       ];
       initialPassword = "nixos";
-      openssh.authorizedKeys.keys = sshKeys.mySSHKeys;
+      openssh.authorizedKeys.keys = sshKeys.allKeys;
     };
 
   #security.sudo.wheelNeedsPassword = false;
