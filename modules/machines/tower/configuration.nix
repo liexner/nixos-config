@@ -49,18 +49,6 @@
     #media-session.enable = true;
   };
 
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.liexner = {
-    isNormalUser = true;
-    description = "Linus Exner Ådemark";
-    extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
-    #  thunderbird
-    ];
-  };
 
   programs.firefox.enable = true;
   programs.steam.enable = true;

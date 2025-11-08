@@ -1,7 +1,23 @@
 { config, lib, pkgs, ... }:
 
+let
+  sshKeys = import ../../../ssh-keys.nix;
+in
 {
 
+  users.users.liexner = {
+      isNormalUser = true;
+      description = "Linus Exner Ådemark";
+      extraGroups = [
+        "wheel"
+        "networkmanager"
+      ];
+      initialPassword = "nixos";
+      openssh.authorizedKeys.keys = sshKeys.mySSHKeys;
+    };
+
+  #security.sudo.wheelNeedsPassword = false;
+  nix.settings.trusted-users = [ "root" "liexner" ];
 
 
   environment.systemPackages = with pkgs; [

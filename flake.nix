@@ -32,57 +32,9 @@
     inputs.flake-parts.lib.mkFlake { inherit inputs; } (
       { ... }:
       {
-        systems = [
-          "x86_64-linux"
-        ];
-        imports = [
-          ./modules/machines
-        ];
+        systems = [ "x86_64-linux" ];
+        imports = [ ./modules/machines ];
         _module.args.rootPath = ./.;
       }
     );
-
-  # outputs = { self, nixpkgs, nixos-wsl, disko, agenix, ... }@inputs:
-  #   let
-  #     system = "x86_64-linux";
-  #     lib = nixpkgs.lib;
-  #     secrets = ./secrets;
-  #   in
-  #   {
-  #     nixosConfigurations = {
-
-  #       tower = lib.nixosSystem {
-  #         inherit system;
-  #         modules = [
-  #           ./hosts/_common/default.nix
-  #           ./hosts/tower/configuration.nix
-  #         ];
-  #       };
-
-  #       elitedesk = lib.nixosSystem {
-  #         inherit system;
-  #         modules = [
-  #           disko.nixosModules.disko
-  #           agenix.nixosModules.default
-  #           ./hosts/_common/default.nix
-  #           ./hosts/elitedesk/configuration.nix
-  #           ./hosts/elitedesk/disko.nix
-  #         ];
-  #       };
-
-  #       wsl = lib.nixosSystem {
-  #         inherit system;
-  #         specialArgs = { inherit inputs; };
-  #         modules = [
-  #           nixos-wsl.nixosModules.default
-  #           agenix.nixosModules.default
-  #           ./hosts/_common/default.nix
-  #           ./hosts/wsl/configuration.nix
-  #         ];
-  #       };
-
-
-
-  #     };
-  #   };
 }
