@@ -3,8 +3,8 @@
 {
   imports = [
     ./disko.nix
-    ../../services/home-assistant.nix  # ← Fixed: removed extra 'modules/'
-    ../../services/newt.nix            # ← Fixed: removed extra 'modules/'
+    ../../services/home-assistant.nix
+    ../../services/newt.nix
   ];
 
   boot.loader.systemd-boot.enable = true;
