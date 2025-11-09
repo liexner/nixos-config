@@ -5,7 +5,7 @@
   imports =
     [
       ./hardware-configuration.nix
-      ./nvidia.nix
+      ./gpu.nix
     ];
 
   boot.loader.systemd-boot.enable = true;
