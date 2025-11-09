@@ -5,6 +5,7 @@
   imports =
     [
       ./hardware-configuration.nix
+      ./nvidia.nix
     ];
 
   boot.loader.systemd-boot.enable = true;
@@ -20,6 +21,7 @@
   # Enable the GNOME Desktop Environment.
   services.desktopManager.gnome.enable = true;
   services.displayManager.gdm.enable = true;
+  #services.displayManager.gdm.wayland = false;
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -49,7 +51,6 @@
     #media-session.enable = true;
   };
 
-
   programs.firefox.enable = true;
   programs.steam.enable = true;
 
@@ -63,28 +64,6 @@
    orca-slicer
   ];
 
-
-
-  hardware.graphics.enable = true;
-  hardware.graphics.enable32Bit = true;
-  hardware.graphics.extraPackages32 = with pkgs.pkgsi686Linux; [
-    vulkan-tools
-  ];
-  hardware.graphics.extraPackages = with pkgs; [
-    vulkan-tools
-    vulkan-validation-layers
-  ];
-
-  services.xserver.videoDrivers = [ "nvidia" ];
-
-
-  hardware.nvidia = {
-    modesetting.enable = true;
-    powerManagement.enable = false;
-    open = false;
-    nvidiaSettings = true;
-    package = config.boot.kernelPackages.nvidiaPackages.production;
-  };
 
   system.stateVersion = "25.05"; # Did you read the comment?
 
