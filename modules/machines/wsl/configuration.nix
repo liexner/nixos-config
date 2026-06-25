@@ -12,6 +12,7 @@
     nixos-anywhere
     nixd
     nixpkgs-fmt
+    claude-code
   ];
 
 }
