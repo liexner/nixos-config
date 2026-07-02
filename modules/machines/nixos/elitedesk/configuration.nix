@@ -1,10 +1,9 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, rootPath, ... }:
 
 {
   imports = [
     ./disko.nix
-    ../../services/home-assistant.nix
-    ../../services/newt.nix
+    (rootPath + "/modules/services/home-assistant.nix")
   ];
 
   boot.loader.systemd-boot.enable = true;

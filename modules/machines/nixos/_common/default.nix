@@ -1,7 +1,7 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, rootPath, ... }:
 
 let
-  sshKeys = import ../../../ssh-keys.nix;
+  sshKeys = import (rootPath + "/ssh-keys.nix");
 in
 {
 

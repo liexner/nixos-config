@@ -10,11 +10,6 @@
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
 
-    agenix = {
-      url = "github:ryantm/agenix?shallow=true";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     nixos-wsl = {
       url = "github:nix-community/NixOS-WSL";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -22,6 +17,11 @@
 
     disko = {
       url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    nix-darwin = {
+      url = "github:LnL7/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -32,8 +32,8 @@
     inputs.flake-parts.lib.mkFlake { inherit inputs; } (
       { ... }:
       {
-        systems = [ "x86_64-linux" ];
-        imports = [ ./modules/machines ];
+        systems = [ "x86_64-linux" "aarch64-darwin" ];
+        imports = [ ./modules/machines/nixos ./modules/machines/darwin ];
         _module.args.rootPath = ./.;
       }
     );

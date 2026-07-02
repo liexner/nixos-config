@@ -3,7 +3,7 @@
 {
   wsl.enable = true;
   wsl.defaultUser = "liexner";
-  wsl.docker-desktop.enable
+  wsl.docker-desktop.enable = true;
 
   environment.systemPackages = with pkgs; [
     neofetch

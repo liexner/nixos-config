@@ -1,4 +1,4 @@
-{ lib, self, ... }:
+{ lib, self, rootPath, ... }:
 let
   entries = builtins.attrNames (builtins.readDir ./.);
   configs = builtins.filter (
@@ -12,11 +12,10 @@ in
         system = "x86_64-linux";
         specialArgs = {
           inherit (self) inputs;
-
+          inherit rootPath;
         };
         modules = [
           self.inputs.disko.nixosModules.disko
-          self.inputs.agenix.nixosModules.default
           self.inputs.nixos-wsl.nixosModules.default
           ./_common/default.nix
           (./. + "/${name}/configuration.nix")

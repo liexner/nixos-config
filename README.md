@@ -16,12 +16,3 @@ nixos-rebuild switch \
   --sudo
 
 ```
-# secrets-manegement
-
-```sh
-
-nix run github:ryantm/agenix -- -e newt.age
-
-nix run github:ryantm/agenix -- --rekey
-
-```
