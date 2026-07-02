@@ -10,4 +10,8 @@
     lazygit
     fastfetch
   ];
+
+  environment.shellAliases = {
+    rebuild = "darwin-rebuild switch --flake ~/nixos-config#mba";
+  };
 }
