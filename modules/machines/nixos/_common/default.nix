@@ -1,8 +1,5 @@
 { config, lib, pkgs, rootPath, ... }:
 
-let
-  sshKeys = import (rootPath + "/ssh-keys.nix");
-in
 {
 
   users.users.liexner = {
@@ -13,7 +10,7 @@ in
         "networkmanager"
       ];
       initialPassword = "nixos";
-      openssh.authorizedKeys.keys = sshKeys.allKeys;
+      openssh.authorizedKeys.keys = import (rootPath + "/ssh-keys.nix");
     };
 
   #security.sudo.wheelNeedsPassword = false;
