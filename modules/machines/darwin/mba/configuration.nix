@@ -13,5 +13,6 @@
 
   environment.shellAliases = {
     rebuild = "sudo darwin-rebuild switch --flake ~/nixos-config#mba";
+    update = "nix flake update --flake ~/nixos-config";
   };
 }
