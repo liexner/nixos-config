@@ -8,5 +8,6 @@
     git
     neovim
     lazygit
+    fastfetch
   ];
 }
