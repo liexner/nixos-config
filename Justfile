@@ -1,0 +1,12 @@
+update:
+    nix flake update --flake ~/nixos-config
+
+local machine:
+    sudo darwin-rebuild switch --flake ~/nixos-config#{{machine}}
+
+remote host ip:
+    nixos-rebuild switch \
+      --flake .#{{host}} \
+      --target-host liexner@{{ip}} \
+      --build-host liexner@{{ip}} \
+      --use-remote-sudo
