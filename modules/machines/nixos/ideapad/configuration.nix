@@ -20,4 +20,18 @@
   services.openssh.settings.PermitRootLogin = "prohibit-password";
 
   security.sudo.wheelNeedsPassword = false;
+
+  system.autoUpgrade = {
+    enable = true;
+    flake = "github:liexner/nixos-config#ideapad";
+    dates = "weekly";
+    allowReboot = true;
+  };
+
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 30d";
+  };
+  nix.settings.auto-optimise-store = true;
 }
