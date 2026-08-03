@@ -1,17 +1,19 @@
-{ config, lib, pkgs, rootPath, ... }:
+{ pkgs, rootPath, ... }:
 
 {
   imports = [
     ./disko.nix
     (rootPath + "/modules/services/home-assistant.nix")
     (rootPath + "/modules/services/caddy.nix")
+    (rootPath + "/modules/services/tably.nix")
   ];
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "elitedesk";
-  networking.networkmanager.enable = true;
+  systemd.network.enable = true;
+  networking.useNetworkd = true;
 
   environment.systemPackages = with pkgs; [
     vim
