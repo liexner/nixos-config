@@ -21,6 +21,7 @@
     wget
     git
     curl
+    just
   ];
 
   time.timeZone = "Europe/Stockholm";
