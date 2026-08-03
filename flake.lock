@@ -114,13 +114,48 @@
         "type": "github"
       }
     },
+    "nixpkgs_2": {
+      "locked": {
+        "lastModified": 1785692966,
+        "narHash": "sha256-vUfIeBEfpbAfZ5zjgIkYk7eHBeVfCYVjLbWnMkseYnk=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "643809054d65fdd466a63e3155b8c498cb483c04",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "disko": "disko",
         "flake-parts": "flake-parts",
         "nix-darwin": "nix-darwin",
         "nixos-wsl": "nixos-wsl",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "tably": "tably"
+      }
+    },
+    "tably": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_2"
+      },
+      "locked": {
+        "lastModified": 1785782258,
+        "narHash": "sha256-B+E6ZCZ5w1fS6kaVAxdIQV+Xo6cb45oGrF+A9CmdLFs=",
+        "owner": "liexner",
+        "repo": "tably",
+        "rev": "f7fa91c636b9c96af1be8cdb308206bf2d52242e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "liexner",
+        "repo": "tably",
+        "type": "github"
       }
     }
   },
