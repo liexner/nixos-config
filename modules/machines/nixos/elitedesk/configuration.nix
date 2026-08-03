@@ -17,11 +17,6 @@
     htop
   ];
 
-  virtualisation.podman = {
-    enable = true;
-    dockerCompat = true;
-  };
-
   services.openssh.enable = true;
   services.openssh.settings.PermitRootLogin = "yes";
 

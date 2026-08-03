@@ -3,6 +3,8 @@
 {
   imports = [
     ./disko.nix
+    (rootPath + "/modules/services/home-assistant.nix")
+    (rootPath + "/modules/services/caddy.nix")
   ];
 
   boot.loader.systemd-boot.enable = true;
