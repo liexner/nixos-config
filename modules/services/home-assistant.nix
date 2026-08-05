@@ -1,20 +1,20 @@
 { config, pkgs, ... }:
 
 {
-
-  networking.firewall.allowedTCPPorts = [ 8123 ];
-
-  virtualisation.oci-containers = {
-    backend = "podman";
-    containers.homeassistant = {
-      volumes = [ "home-assistant:/config" ];
-      image = "ghcr.io/home-assistant/home-assistant:stable";
-      extraOptions = [
-        "--network=host"
-        "--device=/dev/serial/by-id/usb-dresden_elektronik_ingenieurtechnik_GmbH_ConBee_II_DE2480395-if00"
-      ];
+  services.home-assistant = {
+    enable = true;
+    extraComponents = [
+      "zha"
+      "met"
+    ];
+    config.homeassistant = { };
+    config.http = {
+      trusted_proxies = [ "127.0.0.1" "::1" ];
+      use_x_forwarded_for = true;
     };
   };
 
+  users.users.hass.extraGroups = [ "dialout" ];
 
+  networking.firewall.allowedTCPPorts = [ 8123 ];
 }

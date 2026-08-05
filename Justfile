@@ -8,7 +8,7 @@ local machine:
     sudo darwin-rebuild switch --flake ~/nixos-config#{{machine}}
 
 remote host ip:
-    nixos-rebuild switch \
+    nix run nixpkgs#nixos-rebuild -- switch \
       --flake .#{{host}} \
       --target-host liexner@{{ip}} \
       --build-host liexner@{{ip}} \

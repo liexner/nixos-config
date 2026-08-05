@@ -24,6 +24,8 @@
       url = "github:LnL7/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    tably.url = "github:liexner/tably";
   };
 
 
