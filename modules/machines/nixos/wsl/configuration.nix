@@ -20,6 +20,7 @@
     gcc
     openstackclient
     opentofu
+    vim
 ];
 
 }

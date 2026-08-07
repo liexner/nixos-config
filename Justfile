@@ -4,8 +4,8 @@ update:
 wsl:
     sudo nixos-rebuild switch --flake ~/nixos-config#wsl
 
-local machine:
-    sudo darwin-rebuild switch --flake ~/nixos-config#{{machine}}
+mba:
+    sudo darwin-rebuild switch --flake ~/nixos-config#mba
 
 remote host ip:
     nix run nixpkgs#nixos-rebuild -- switch \
