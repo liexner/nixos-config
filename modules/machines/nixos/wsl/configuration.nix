@@ -11,7 +11,6 @@
   ];
 
   environment.systemPackages = with pkgs; [
-    fastfetch
     nixos-anywhere
     nixd
     nixpkgs-fmt
