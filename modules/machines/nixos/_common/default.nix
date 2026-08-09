@@ -10,7 +10,7 @@
         "networkmanager"
       ];
       initialPassword = "nixos";
-      openssh.authorizedKeys.keys = import (rootPath + "/ssh-keys.nix");
+      openssh.authorizedKeys.keys = builtins.attrValues (import (rootPath + "/keys.nix")).personal;
     };
 
   #security.sudo.wheelNeedsPassword = false;
