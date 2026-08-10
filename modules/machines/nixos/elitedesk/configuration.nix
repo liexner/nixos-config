@@ -6,6 +6,7 @@
     (rootPath + "/modules/services/home-assistant.nix")
     (rootPath + "/modules/services/caddy.nix")
     (rootPath + "/modules/services/tably.nix")
+    (rootPath + "/modules/services/tailscale.nix")
   ];
 
   boot.loader.systemd-boot.enable = true;

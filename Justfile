@@ -7,6 +7,9 @@ wsl:
 mba:
     sudo darwin-rebuild switch --flake ~/nixos-config#mba
 
+secret name:
+    cd secrets && nix run github:ryantm/agenix -- -e {{name}}.age
+
 remote host ip:
     nix run nixpkgs#nixos-rebuild -- switch \
       --flake .#{{host}} \

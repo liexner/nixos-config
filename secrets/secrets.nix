@@ -1,7 +1,7 @@
 let
   keys = import ../keys.nix;
-  admin = keys.personal.nixos;
+  admins = builtins.attrValues keys.personal;
 in
 {
-  "hass-basic-auth.age".publicKeys = [ admin keys.hosts.elitedesk ];
+  "tailscale.age".publicKeys = admins ++ [ keys.hosts.elitedesk ];
 }
