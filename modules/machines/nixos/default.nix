@@ -17,6 +17,7 @@ in
         modules = [
           self.inputs.disko.nixosModules.disko
           self.inputs.nixos-wsl.nixosModules.default
+          self.inputs.agenix.nixosModules.default
           ./_common/default.nix
           (./. + "/${name}/configuration.nix")
         ];
