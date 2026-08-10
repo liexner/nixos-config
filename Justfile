@@ -13,3 +13,7 @@ remote host ip:
       --target-host liexner@{{ip}} \
       --build-host liexner@{{ip}} \
       --use-remote-sudo
+
+ed:
+    just remote elitedesk elitedesk
+
