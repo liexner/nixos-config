@@ -2,13 +2,14 @@
   description = "My multi-host NixOS configurations";
 
   inputs = {
-    #nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05?shallow=true";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
+
+    import-tree.url = "github:vic/import-tree";
 
     nixos-wsl = {
       url = "github:nix-community/NixOS-WSL";
@@ -30,18 +31,15 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    tably.url = "github:liexner/tably";
   };
 
-
   outputs =
-    inputs@{ flake-parts, ... }:
-    inputs.flake-parts.lib.mkFlake { inherit inputs; } (
-      { ... }:
-      {
-        systems = [ "x86_64-linux" "aarch64-darwin" ];
-        imports = [ ./modules/machines/nixos ./modules/machines/darwin ];
-        _module.args.rootPath = ./.;
-      }
-    );
+  inputs@{ flake-parts, import-tree, ... }:
+  flake-parts.lib.mkFlake { inherit inputs; } {
+    systems = [ "x86_64-linux" "aarch64-darwin" ];
+    imports = [
+      flake-parts.flakeModules.modules
+      (import-tree ./modules)
+    ];
+  };
 }
