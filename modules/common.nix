@@ -5,7 +5,7 @@
     {
       users.users.liexner = {
         isNormalUser = true;
-        description = "Linus Exner Ådemark";
+        description = "Linus";
         extraGroups = [ "wheel" "networkmanager" ];
         initialPassword = "nixos";
         openssh.authorizedKeys.keys = builtins.attrValues (import (self + "/keys.nix")).personal;
