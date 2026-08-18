@@ -10,6 +10,11 @@
       };
     };
     users.users.hass.extraGroups = [ "dialout" ];
+
+    services.caddy.virtualHosts."hass.exner.dev".extraConfig = ''
+      reverse_proxy localhost:8123
+    '';
+
     networking.firewall.allowedTCPPorts = [ 8123 ];
   };
 }
