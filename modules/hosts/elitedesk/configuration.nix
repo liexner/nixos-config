@@ -1,9 +1,17 @@
-{ config, inputs, ... }:
+{ inputs, ... }:
 {
   flake.modules.nixos.elitedesk =
     { pkgs, ... }:
     {
-      imports = [ ./_disko.nix ];
+      imports = [
+        ./_disko.nix
+        inputs.disko.nixosModules.disko
+        inputs.agenix.nixosModules.default
+        inputs.self.modules.nixos.common
+        inputs.self.modules.nixos.caddy
+        inputs.self.modules.nixos.home-assistant
+        inputs.self.modules.nixos.tailscale
+      ];
 
       boot.loader.systemd-boot.enable = true;
       boot.loader.efi.canTouchEfiVariables = true;
@@ -33,18 +41,4 @@
 
       security.sudo.wheelNeedsPassword = false;
     };
-
-  flake.nixosConfigurations.elitedesk = inputs.nixpkgs.lib.nixosSystem {
-    system = "x86_64-linux";
-    specialArgs = { inherit inputs; };
-    modules = [
-      inputs.disko.nixosModules.disko
-      inputs.agenix.nixosModules.default
-      config.flake.modules.nixos.common
-      config.flake.modules.nixos.caddy
-      config.flake.modules.nixos.home-assistant
-      config.flake.modules.nixos.tailscale
-      config.flake.modules.nixos.elitedesk
-    ];
-  };
 }

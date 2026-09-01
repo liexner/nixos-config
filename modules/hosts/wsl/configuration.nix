@@ -1,8 +1,15 @@
-{ config, inputs, ... }:
+{ inputs, ... }:
 {
   flake.modules.nixos.wsl =
     { pkgs, ... }:
     {
+      imports = [
+        inputs.nixos-wsl.nixosModules.default
+        inputs.agenix.nixosModules.default
+        inputs.self.modules.nixos.common
+        inputs.self.modules.nixos.cli-tools
+      ];
+
       wsl.enable = true;
       wsl.defaultUser = "liexner";
       wsl.docker-desktop.enable = true;
@@ -15,23 +22,15 @@
         nixd
         nixpkgs-fmt
         claude-code
-        neovim
-        lazygit
         gcc
         openstackclient
         opentofu
         vim
+        tmux
+        dotnet-sdk
+        cargo
+        rustc
+        unzip
       ];
     };
-
-  flake.nixosConfigurations.wsl = inputs.nixpkgs.lib.nixosSystem {
-    system = "x86_64-linux";
-    specialArgs = { inherit inputs; };
-    modules = [
-      inputs.nixos-wsl.nixosModules.default
-      inputs.agenix.nixosModules.default
-      config.flake.modules.nixos.common
-      config.flake.modules.nixos.wsl
-    ];
-  };
 }
