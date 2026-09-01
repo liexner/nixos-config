@@ -3,17 +3,26 @@
   flake.modules.nixos.wsl =
     { pkgs, ... }:
     {
-      wsl.enable = true;
-      wsl.defaultUser = "liexner";
-      wsl.docker-desktop.enable = true;
+      wsl = {
+        enable = true;
+        defaultUser = "liexner";
+        docker-desktop.enable = true;
+      };
       programs.nix-ld.enable = true;
 
       fonts.packages = with pkgs; [ nerd-fonts.jetbrains-mono ];
+
+      programs.direnv = {
+        enable = true;
+        nix-direnv.enable = true;
+      };
 
       environment.systemPackages = with pkgs; [
         nixos-anywhere
         nixd
         nixpkgs-fmt
+        nixfmt-rfc-style
+        statix
         claude-code
         neovim
         lazygit
