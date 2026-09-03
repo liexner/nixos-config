@@ -24,12 +24,12 @@
         nixfmt-rfc-style
         statix
         claude-code
-        neovim
         lazygit
         gcc
         openstackclient
         opentofu
         vim
+        tmux
       ];
     };
 
@@ -41,6 +41,7 @@
       inputs.agenix.nixosModules.default
       config.flake.modules.nixos.common
       config.flake.modules.nixos.wsl
+      config.flake.modules.nixos.neovim
     ];
   };
 }
