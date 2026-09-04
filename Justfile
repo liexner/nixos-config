@@ -1,6 +1,10 @@
 update:
     nix flake update --flake ~/nixos-config
 
+# delete all old generations (system + user + home-manager) and garbage-collect the store
+clean:
+    sudo nix-collect-garbage -d
+
 wsl:
     sudo nixos-rebuild switch --flake ~/nixos-config#wsl
 
