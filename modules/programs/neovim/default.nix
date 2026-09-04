@@ -86,6 +86,8 @@
 
         extraPackages = [
           pkgs.ripgrep
+          pkgs.go # gopls shells out to `go` at runtime (module resolution, vet, etc.)
+          pkgs.gofumpt # not covered by conform's autoInstall package mapping
         ];
 
         highlightOverride = {
@@ -178,6 +180,14 @@
             enable = true;
             config.settings.nixd.options.nixos.expr = "(builtins.getFlake (builtins.toString ./.)).nixosConfigurations.wsl.options";
           };
+
+          servers.gopls = {
+            enable = true;
+            config.settings.gopls = {
+              gofumpt = true; # use gofumpt's stricter formatting inside gopls itself
+              staticcheck = true; # extra analyses beyond go vet
+            };
+          };
         };
 
         ########
@@ -190,6 +200,10 @@
           settings = {
             formatters_by_ft = {
               nix = [ "nixfmt" ];
+              go = [
+                "goimports" # fixes/organizes imports on save
+                "gofumpt" # stricter superset of gofmt
+              ];
             };
             format_on_save = {
               lsp_format = "fallback"; # use the LSP's own formatter only if no formatter above matched
