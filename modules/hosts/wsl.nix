@@ -30,6 +30,7 @@
         opentofu
         vim
         tmux
+        fastfetch
       ];
     };
 
