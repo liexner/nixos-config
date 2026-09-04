@@ -176,7 +176,7 @@
 
           servers.nixd = {
             enable = true;
-            settings.nixd.options.nixos.expr = "(builtins.getFlake (builtins.toString ./.)).nixosConfigurations.wsl.options";
+            config.settings.nixd.options.nixos.expr = "(builtins.getFlake (builtins.toString ./.)).nixosConfigurations.wsl.options";
           };
         };
 
