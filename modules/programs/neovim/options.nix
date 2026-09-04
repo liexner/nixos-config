@@ -16,7 +16,7 @@
         globals.mapleader = " ";
 
         opts = {
-          background = "light"; # pin dark background instead of relying on terminal auto-detection
+          background = "dark"; # pin dark background instead of relying on terminal auto-detection
           number = true; # line number
           relativenumber = true; # relative line numbers
           cursorline = true; # highlight current line
