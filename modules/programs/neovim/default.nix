@@ -11,7 +11,7 @@
         viAlias = true;
         vimAlias = true;
 
-        # colorschemes.tokyonight.enable = true;
+        colorschemes.tokyonight.enable = true;
 
         globals.mapleader = " ";
 
@@ -105,6 +105,9 @@
             pick = { };
             comment = { };
             diff = { };
+            completion = { };
+            pairs = { };
+            surround = { };
           };
         };
 
@@ -134,6 +137,66 @@
             options.desc = "Grep in files";
           }
         ];
+
+        ########
+        # LSP
+        ########
+
+        lsp = {
+          keymaps = [
+            {
+              key = "gd";
+              lspBufAction = "definition";
+            }
+            {
+              key = "gr";
+              lspBufAction = "references";
+            }
+            {
+              key = "gi";
+              lspBufAction = "implementation";
+            }
+            {
+              key = "K";
+              lspBufAction = "hover";
+            }
+            {
+              key = "<leader>rn";
+              lspBufAction = "rename";
+            }
+            {
+              key = "<leader>ca";
+              lspBufAction = "code_action";
+            }
+            {
+              key = "<leader>lr";
+              action = "<CMD>LspRestart<Enter>";
+            }
+          ];
+
+          servers.nixd = {
+            enable = true;
+            settings.nixd.options.nixos.expr = "(builtins.getFlake (builtins.toString ./.)).nixosConfigurations.wsl.options";
+          };
+        };
+
+        ########
+        # Formatting
+        ########
+
+        plugins.conform-nvim = {
+          enable = true;
+          autoInstall.enable = true; # auto-install formatter packages via Nix, no manual extraPackages needed
+          settings = {
+            formatters_by_ft = {
+              nix = [ "nixfmt" ];
+            };
+            format_on_save = {
+              lsp_format = "fallback"; # use the LSP's own formatter only if no formatter above matched
+              timeout_ms = 1000;
+            };
+          };
+        };
 
         ########
         # Git
