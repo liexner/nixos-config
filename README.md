@@ -14,6 +14,8 @@ Hosts:
 - `wsl` — NixOS-WSL, daily driver dev environment
 - `mba` — nix-darwin, MacBook Air
 
+- s
+
 ## Usage
 
 ```sh
