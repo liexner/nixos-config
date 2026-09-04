@@ -119,6 +119,9 @@
           indent.enable = true;
         };
 
+        # `S` rather than the usual `s`, since mini.surround already owns `s`/`sa`/`sd`/`sr`/...
+        plugins.flash.enable = true;
+
         keymaps = [
           {
             mode = "n";
@@ -137,6 +140,16 @@
             key = "<leader>fg";
             action = "<cmd>lua MiniPick.builtin.grep_live()<CR>";
             options.desc = "Grep in files";
+          }
+          {
+            mode = [
+              "n"
+              "x"
+              "o"
+            ];
+            key = "S";
+            action = "<cmd>lua require('flash').jump()<CR>";
+            options.desc = "Flash jump";
           }
         ];
 
