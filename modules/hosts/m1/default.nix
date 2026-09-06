@@ -1,11 +1,13 @@
 { config, inputs, ... }:
 {
-  flake.modules.darwin.mba =
+  flake.modules.darwin.m1 =
     { pkgs, ... }:
     {
       nix.settings.experimental-features = [ "nix-command" "flakes" ];
       system.stateVersion = 6;
-      system.primaryUser = "liexner";
+      system.primaryUser = "linusexner";
+
+      users.users.linusexner.home = "/Users/linusexner";
 
       environment.systemPackages = with pkgs; [
         git
@@ -15,17 +17,17 @@
         nixos-anywhere
       ];
 
-      home-manager.users.liexner = {
-        home.username = "liexner";
-        home.homeDirectory = "/Users/liexner";
+      home-manager.users.linusexner = {
+        home.username = "linusexner";
+        home.homeDirectory = "/Users/linusexner";
         home.stateVersion = "25.05";
         imports = [ config.flake.modules.homeManager.neovim ];
       };
     };
 
-  flake.darwinConfigurations.mba = config.flake.lib.mkDarwin [
+  flake.darwinConfigurations.m1 = config.flake.lib.mkDarwin [
     { nixpkgs.hostPlatform = "aarch64-darwin"; }
-    config.flake.modules.darwin.mba
+    config.flake.modules.darwin.m1
     config.flake.modules.darwin.home-manager
   ];
 }

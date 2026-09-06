@@ -12,9 +12,8 @@ Hosts:
 
 - `elitedesk` — NixOS, home server (Home Assistant, Caddy, Tailscale)
 - `wsl` — NixOS-WSL, daily driver dev environment
-- `mba` — nix-darwin, MacBook Air
-
-- s
+- `m1` — nix-darwin, MacBook Air (M1, user `linusexner`)
+- `m4` — nix-darwin, MacBook Air (M4, user `liexner`)
 
 ## Usage
 
@@ -30,7 +29,8 @@ just update
 
 ```sh
 just wsl   # sudo nixos-rebuild switch --flake .#wsl
-just mba   # sudo darwin-rebuild switch --flake .#mba
+just m1    # sudo darwin-rebuild switch --flake .#m1
+just m4    # sudo darwin-rebuild switch --flake .#m4
 ```
 
 ### Remote rebuilds

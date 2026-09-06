@@ -14,7 +14,7 @@
             config.settings.nixd.options =
               if pkgs.stdenv.hostPlatform.isDarwin then
                 {
-                  darwin.expr = "(builtins.getFlake (builtins.toString ./.)).darwinConfigurations.mba.options";
+                  darwin.expr = "(builtins.getFlake (builtins.toString ./.)).darwinConfigurations.m1.options";
                 }
               else
                 {

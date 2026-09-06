@@ -8,8 +8,11 @@ clean:
 wsl:
     sudo nixos-rebuild switch --flake ~/nixos-config#wsl
 
-mba:
-    sudo darwin-rebuild switch --flake ~/nixos-config#mba
+m1:
+    sudo darwin-rebuild switch --flake ~/nixos-config#m1
+
+m4:
+    sudo darwin-rebuild switch --flake ~/nixos-config#m4
 
 secret name:
     cd secrets && nix run github:ryantm/agenix -- -e {{name}}.age
