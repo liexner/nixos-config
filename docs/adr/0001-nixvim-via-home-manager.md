@@ -1,0 +1,7 @@
+# Neovim config is carried by home-manager, not the NixOS module
+
+Neovim was configured via `programs.nixvim` as a NixOS module (`flake.modules.nixos.neovim`), which only runs on NixOS and left the `mba` (nix-darwin) host broken — it referenced a module path that never existed, and even a correct path would have failed since `nixvim` ships no `nixosModules`-equivalent for nix-darwin (confirmed via `nix eval github:nix-community/nixvim#darwinModules`, which errors: no such output).
+
+We moved the same declarative nixvim config to `flake.modules.homeManager.neovim`, using `nixvim.homeManagerModules.nixvim`, since home-manager runs identically on NixOS and nix-darwin. This also meant introducing home-manager itself, wired in as an integrated NixOS/nix-darwin module (`home-manager.users.<name>`, activated by the same `nixos-rebuild`/`darwin-rebuild switch`) rather than a standalone `home-manager switch` — every host here is already fully managed by one of those two rebuild commands, so standalone activation would only add a second command with no offsetting benefit.
+
+We considered hand-writing plain Lua instead of nixvim, since portability was the actual problem, not the tool. Rejected: the existing config leans on nixvim to auto-install LSP servers/formatters as Nix store paths and to structure keymaps/plugins declaratively — replacing that with hand-rolled Lua (plugin manager, manual LSP installs) would be a large rewrite for zero additional portability, since home-manager alone already solves cross-platform.

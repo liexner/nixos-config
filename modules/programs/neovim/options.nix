@@ -1,9 +1,9 @@
 { inputs, ... }:
 {
-  flake.modules.nixos.neovim =
+  flake.modules.homeManager.neovim =
     { pkgs, ... }:
     {
-      imports = [ inputs.nixvim.nixosModules.nixvim ];
+      imports = [ inputs.nixvim.homeModules.nixvim ];
 
       programs.nixvim = {
         enable = true;

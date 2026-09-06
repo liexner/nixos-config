@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.neovim =
+  flake.modules.homeManager.neovim =
     { pkgs, ... }:
     {
       programs.nixvim = {

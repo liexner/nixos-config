@@ -34,17 +34,20 @@
         github-copilot-cli
         nodejs
       ];
+
+      home-manager.users.liexner = {
+        home.username = "liexner";
+        home.homeDirectory = "/home/liexner";
+        home.stateVersion = "25.05";
+        imports = [ config.flake.modules.homeManager.neovim ];
+      };
     };
 
-  flake.nixosConfigurations.wsl = inputs.nixpkgs.lib.nixosSystem {
-    system = "x86_64-linux";
-    specialArgs = { inherit inputs; };
-    modules = [
-      inputs.nixos-wsl.nixosModules.default
-      inputs.agenix.nixosModules.default
-      config.flake.modules.nixos.common
-      config.flake.modules.nixos.wsl
-      config.flake.modules.nixos.neovim
-    ];
-  };
+  flake.nixosConfigurations.wsl = config.flake.lib.mkNixos "x86_64-linux" [
+    inputs.nixos-wsl.nixosModules.default
+    inputs.agenix.nixosModules.default
+    config.flake.modules.nixos.common
+    config.flake.modules.nixos.home-manager
+    config.flake.modules.nixos.wsl
+  ];
 }

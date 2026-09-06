@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.neovim =
+  flake.modules.homeManager.neovim =
     { pkgs, ... }:
     {
       programs.nixvim = {
@@ -11,7 +11,15 @@
         lsp.servers = {
           nixd = {
             enable = true;
-            config.settings.nixd.options.nixos.expr = "(builtins.getFlake (builtins.toString ./.)).nixosConfigurations.wsl.options";
+            config.settings.nixd.options =
+              if pkgs.stdenv.hostPlatform.isDarwin then
+                {
+                  darwin.expr = "(builtins.getFlake (builtins.toString ./.)).darwinConfigurations.mba.options";
+                }
+              else
+                {
+                  nixos.expr = "(builtins.getFlake (builtins.toString ./.)).nixosConfigurations.wsl.options";
+                };
           };
 
           gopls = {
