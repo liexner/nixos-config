@@ -31,6 +31,8 @@
         vim
         tmux
         fastfetch
+        github-copilot-cli
+        nodejs
       ];
     };
 
