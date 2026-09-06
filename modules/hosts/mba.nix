@@ -21,6 +21,7 @@
     modules = [
       { nixpkgs.hostPlatform = "aarch64-darwin"; }
       config.flake.modules.darwin.mba
+      config.flake.modules.neovim
     ];
   };
 }
