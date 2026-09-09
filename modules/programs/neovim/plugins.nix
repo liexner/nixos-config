@@ -30,6 +30,10 @@
         # `S` rather than the usual `s`, since mini.surround already owns `s`/`sa`/`sd`/`sr`/...
         plugins.flash.enable = true;
 
+        plugins.smear-cursor.enable = true;
+
+        plugins.oil.enable = true;
+
         keymaps = [
           {
             mode = "n";
