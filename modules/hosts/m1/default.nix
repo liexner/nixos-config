@@ -3,7 +3,10 @@
   flake.modules.darwin.m1 =
     { pkgs, ... }:
     {
-      nix.settings.experimental-features = [ "nix-command" "flakes" ];
+      nix.settings.experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
       system.stateVersion = 6;
       system.primaryUser = "linusexner";
 
@@ -15,6 +18,7 @@
         fastfetch
         just
         nixos-anywhere
+        nodejs
       ];
 
       home-manager.users.linusexner = {
