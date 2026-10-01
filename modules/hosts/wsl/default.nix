@@ -39,6 +39,8 @@
         home.username = "liexner";
         home.homeDirectory = "/home/liexner";
         home.stateVersion = "25.05";
+        home.sessionPath = [ "$HOME/.local/bin" ];
+        programs.bash.enable = true;
         imports = [ config.flake.modules.homeManager.neovim ];
       };
     };

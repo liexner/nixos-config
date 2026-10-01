@@ -1,4 +1,4 @@
-{ self, ... }:
+{ self, config, ... }:
 {
   flake.modules.nixos.common =
     { config, lib, pkgs, ... }:
@@ -32,5 +32,27 @@
       nixpkgs.config.allowUnfree = true;
       nix.settings.experimental-features = [ "nix-command" "flakes" ];
       system.stateVersion = "25.05";
+    };
+
+  flake.modules.darwin.common =
+    { pkgs, ... }:
+    {
+      nix.settings.experimental-features = [ "nix-command" "flakes" ];
+      system.stateVersion = 6;
+
+      environment.systemPackages = with pkgs; [
+        git
+        lazygit
+        fastfetch
+        just
+        nixos-anywhere
+      ];
+
+      home-manager.sharedModules = [
+        {
+          home.stateVersion = "25.05";
+          imports = [ config.flake.modules.homeManager.neovim ];
+        }
+      ];
     };
 }
