@@ -1,8 +1,8 @@
 {
-  flake.modules.nixos.home-assistant = {
+  flake.modules.nixos.home-assistant = { pkgs, ... }: {
     services.home-assistant = {
       enable = true;
-      extraComponents = [ "default_config" "zha" "met" ];
+      extraComponents = [ "default_config" "zha" "met" "matter" ];
       config.homeassistant = { };
       config.default_config = { };
       config.http = {
@@ -13,6 +13,36 @@
       config."automation ui" = "!include automations.yaml";
       config."scene ui" = "!include scenes.yaml";
       config."script ui" = "!include scripts.yaml";
+      # BILRESA scroll wheel (Zigbee mode, no ZHA quirk) -> Klara's lamp
+      config.automation = [{
+        alias = "Klaras remote";
+        mode = "restart"; # wheel spams move_to_level, latest wins
+        triggers = [{
+          trigger = "event";
+          event_type = "zha_event";
+          event_data.device_ieee = "10:35:97:00:00:18:d7:3a";
+        }];
+        actions = [{
+          choose = [
+            {
+              conditions = "{{ trigger.event.data.command == 'on' }}";
+              sequence = [{ action = "light.turn_on"; target.entity_id = "light.klaras_kontorslampa"; }];
+            }
+            {
+              conditions = "{{ trigger.event.data.command == 'off' }}";
+              sequence = [{ action = "light.turn_off"; target.entity_id = "light.klaras_kontorslampa"; }];
+            }
+            {
+              conditions = "{{ trigger.event.data.command == 'move_to_level' }}";
+              sequence = [{
+                action = "light.turn_on";
+                target.entity_id = "light.klaras_kontorslampa";
+                data.brightness = "{{ trigger.event.data.args[0] }}";
+              }];
+            }
+          ];
+        }];
+      }];
     };
     systemd.tmpfiles.rules = [
       "f /var/lib/hass/automations.yaml 0644 hass hass"
@@ -25,6 +55,19 @@
       reverse_proxy localhost:8123
     '';
 
+    # Matter controller; HA's matter integration talks to it on ws://localhost:5580/ws
+    services.matter-server.enable = true;
+    # ponytail: newer cryptography rejects one malformed DCL root cert and the
+    # exception kills startup; skip it instead. Drop once upstream catches it.
+    services.matter-server.package = pkgs.python-matter-server.overridePythonAttrs (old: {
+      postPatch = (old.postPatch or "") + ''
+        substituteInPlace matter_server/server/helpers/paa_certificates.py \
+          --replace-fail "        cert = x509.load_pem_x509_certificate(pem_certificate.encode())" \
+          $'        try:\n            cert = x509.load_pem_x509_certificate(pem_certificate.encode())\n        except ValueError:\n            LOGGER.warning("Skipping unparsable PAA cert %s", subject)\n            return False'
+      '';
+    });
+
     networking.firewall.allowedTCPPorts = [ 8123 ];
+    networking.firewall.allowedUDPPorts = [ 5353 5540 ]; # mDNS, Matter
   };
 }
