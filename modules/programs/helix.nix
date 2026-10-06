@@ -5,7 +5,6 @@
       programs.helix = {
         enable = true;
 
-        # -> ~/.config/helix/config.toml
         settings = {
           theme = "tokyonight";
           editor = {
@@ -13,7 +12,7 @@
             cursor-shape.insert = "bar";
             lsp.display-inlay-hints = true;
           };
-          # Ctrl-g: lazygit in a scratch buffer, discarded on exit
+
           keys.normal.C-g = [
             ":new"
             ":insert-output lazygit"
@@ -22,7 +21,6 @@
           ];
         };
 
-        # -> ~/.config/helix/languages.toml
         languages.language = [
           {
             name = "nix";
