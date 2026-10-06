@@ -4,4 +4,5 @@ let
 in
 {
   "tailscale.age".publicKeys = admins ++ [ keys.hosts.elitedesk ];
+  "microbin.age".publicKeys = admins ++ [ keys.hosts.elitedesk ];
 }

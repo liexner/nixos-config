@@ -38,6 +38,7 @@
     inputs.disko.nixosModules.disko
     config.flake.modules.nixos.caddy
     config.flake.modules.nixos.home-assistant
+    config.flake.modules.nixos.microbin
     config.flake.modules.nixos.tailscale
     config.flake.modules.nixos.elitedesk
   ];
