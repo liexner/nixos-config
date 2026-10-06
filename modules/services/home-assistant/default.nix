@@ -13,36 +13,6 @@
       config."automation ui" = "!include automations.yaml";
       config."scene ui" = "!include scenes.yaml";
       config."script ui" = "!include scripts.yaml";
-      # BILRESA scroll wheel (Zigbee mode, no ZHA quirk) -> Klara's lamp
-      config.automation = [{
-        alias = "Klaras remote";
-        mode = "restart"; # wheel spams move_to_level, latest wins
-        triggers = [{
-          trigger = "event";
-          event_type = "zha_event";
-          event_data.device_ieee = "10:35:97:00:00:18:d7:3a";
-        }];
-        actions = [{
-          choose = [
-            {
-              conditions = "{{ trigger.event.data.command == 'on' }}";
-              sequence = [{ action = "light.turn_on"; target.entity_id = "light.klaras_kontorslampa"; }];
-            }
-            {
-              conditions = "{{ trigger.event.data.command == 'off' }}";
-              sequence = [{ action = "light.turn_off"; target.entity_id = "light.klaras_kontorslampa"; }];
-            }
-            {
-              conditions = "{{ trigger.event.data.command == 'move_to_level' }}";
-              sequence = [{
-                action = "light.turn_on";
-                target.entity_id = "light.klaras_kontorslampa";
-                data.brightness = "{{ trigger.event.data.args[0] }}";
-              }];
-            }
-          ];
-        }];
-      }];
     };
     systemd.tmpfiles.rules = [
       "f /var/lib/hass/automations.yaml 0644 hass hass"
