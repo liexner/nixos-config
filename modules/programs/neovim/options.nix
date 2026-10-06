@@ -7,6 +7,7 @@
 
       programs.nixvim = {
         enable = true;
+        nixpkgs.source = inputs.nixpkgs; # nixvim follows our nixpkgs on purpose
         defaultEditor = true;
         viAlias = true;
         vimAlias = true;

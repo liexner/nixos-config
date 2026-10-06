@@ -21,7 +21,7 @@
         nixos-anywhere
         nixd
         nixpkgs-fmt
-        nixfmt-rfc-style
+        nixfmt
         statix
         claude-code
         lazygit
@@ -40,7 +40,9 @@
         home.homeDirectory = "/home/liexner";
         home.stateVersion = "25.05";
         home.sessionPath = [ "$HOME/.local/bin" ];
+        home.packages = with pkgs; [ gh wrangler ];
         programs.bash.enable = true;
+        programs.starship.enable = true;
         imports = [ config.flake.modules.homeManager.neovim ];
       };
     };
