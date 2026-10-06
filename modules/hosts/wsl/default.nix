@@ -19,39 +19,25 @@
 
       environment.systemPackages = with pkgs; [
         nixos-anywhere
-        nixd
         nixpkgs-fmt
-        nixfmt
-        statix
-        claude-code
-        lazygit
         gcc
         openstackclient
         opentofu
         vim
         tmux
-        fastfetch
         github-copilot-cli
-        nodejs
       ];
 
       home-manager.users.liexner = {
-        home.username = "liexner";
-        home.homeDirectory = "/home/liexner";
-        home.stateVersion = "25.05";
         home.sessionPath = [ "$HOME/.local/bin" ];
-        home.packages = with pkgs; [ gh wrangler ];
+        home.packages = with pkgs; [ wrangler ];
         programs.bash.enable = true;
         programs.starship.enable = true;
-        imports = [ config.flake.modules.homeManager.neovim ];
       };
     };
 
-  flake.nixosConfigurations.wsl = config.flake.lib.mkNixos "x86_64-linux" [
+  flake.nixosConfigurations.wsl = config.flake.lib.mkNixos [
     inputs.nixos-wsl.nixosModules.default
-    inputs.agenix.nixosModules.default
-    config.flake.modules.nixos.common
-    config.flake.modules.nixos.home-manager
     config.flake.modules.nixos.wsl
   ];
 }

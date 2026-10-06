@@ -1,4 +1,4 @@
-{ inputs, lib, ... }:
+{ inputs, lib, config, ... }:
 {
   options = {
     flake.lib = lib.mkOption {
@@ -16,19 +16,27 @@
     };
   };
 
+  # Every host gets common + home-manager (+ agenix on NixOS); hosts pass only what varies.
   config.flake.lib = {
     mkNixos =
-      system: modules:
+      modules:
       inputs.nixpkgs.lib.nixosSystem {
-        inherit system modules;
-        specialArgs = { inherit inputs; };
+        system = "x86_64-linux";
+        modules = [
+          inputs.agenix.nixosModules.default
+          config.flake.modules.nixos.common
+          config.flake.modules.nixos.home-manager
+        ] ++ modules;
       };
 
     mkDarwin =
       modules:
       inputs.nix-darwin.lib.darwinSystem {
-        inherit modules;
-        specialArgs = { inherit inputs; };
+        modules = [
+          { nixpkgs.hostPlatform = "aarch64-darwin"; }
+          config.flake.modules.darwin.common
+          config.flake.modules.darwin.home-manager
+        ] ++ modules;
       };
   };
 }

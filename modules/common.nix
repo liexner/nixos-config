@@ -35,24 +35,37 @@
     };
 
   flake.modules.darwin.common =
-    { pkgs, ... }:
+    { lib, pkgs, ... }:
     {
+      system.primaryUser = lib.mkDefault "liexner";
+
       nix.settings.experimental-features = [ "nix-command" "flakes" ];
       system.stateVersion = 6;
 
+      nixpkgs.config.allowUnfree = true; # claude-code, via home-manager's useGlobalPkgs
+
       environment.systemPackages = with pkgs; [
         git
-        lazygit
-        fastfetch
         just
         nixos-anywhere
       ];
+    };
 
-      home-manager.sharedModules = [
-        {
-          home.stateVersion = "25.05";
-          imports = [ config.flake.modules.homeManager.neovim ];
-        }
+  # User tools for every machine; applied through home-manager.sharedModules
+  flake.modules.homeManager.common =
+    { pkgs, ... }:
+    {
+      home.stateVersion = "25.05";
+      imports = [ config.flake.modules.homeManager.neovim ];
+      home.packages = with pkgs; [
+        lazygit
+        fastfetch
+        gh
+        nodejs
+        nixd
+        nixfmt
+        statix
+        claude-code
       ];
     };
 }
