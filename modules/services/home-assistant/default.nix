@@ -25,10 +25,8 @@
       reverse_proxy localhost:8123
     '';
 
-    # Matter controller; HA's matter integration talks to it on ws://localhost:5580/ws
     services.matter-server.enable = true;
-    # ponytail: newer cryptography rejects one malformed DCL root cert and the
-    # exception kills startup; skip it instead. Drop once upstream catches it.
+
     services.matter-server.package = pkgs.python-matter-server.overridePythonAttrs (old: {
       postPatch = (old.postPatch or "") + ''
         substituteInPlace matter_server/server/helpers/paa_certificates.py \

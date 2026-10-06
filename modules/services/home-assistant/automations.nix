@@ -1,6 +1,5 @@
 {
   flake.modules.nixos.home-assistant.services.home-assistant.config.automation = [
-    # BILRESA scroll wheel (Zigbee mode, no ZHA quirk) -> Klara's lamp
     {
       alias = "Klaras remote";
       mode = "restart"; # wheel spams move_to_level, latest wins
@@ -41,11 +40,13 @@
       }) [ "on" "off" ];
       actions = [{
         action = "notify.mobile_app_pixel_9_pro_xl";
-        data.message = "Door {{ 'opened' if trigger.event.data.command == 'on' else 'closed' }} at {{ now().strftime('%H:%M') }}";
+        data = {
+          message = "Door {{ 'opened' if trigger.event.data.command == 'on' else 'closed' }} at {{ now().strftime('%H:%M') }}";
+          data = { priority = "high"; ttl = 0; }; # bypass Android doze batching
+        };
       }];
     }
     {
-      # Moonraker [notifier] posts Apprise json:// payloads ({title, message}) here
       alias = "Klipper notification";
       mode = "queued";
       triggers = [{
@@ -59,6 +60,7 @@
         data = {
           title = "{{ trigger.json.title | default('Klipper', true) }}";
           message = "{{ trigger.json.message }}";
+          data = { priority = "high"; ttl = 0; }; # bypass Android doze batching
         };
       }];
     }
