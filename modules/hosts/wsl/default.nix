@@ -18,7 +18,6 @@
       };
 
       environment.systemPackages = with pkgs; [
-        nixos-anywhere
         nixpkgs-fmt
         gcc
         openstackclient

@@ -16,18 +16,6 @@
       environment.systemPackages = with pkgs; [ wget git curl just ];
 
       time.timeZone = "Europe/Stockholm";
-      i18n.defaultLocale = "en_US.UTF-8";
-      i18n.extraLocaleSettings = {
-        LC_ADDRESS = "sv_SE.UTF-8";
-        LC_IDENTIFICATION = "sv_SE.UTF-8";
-        LC_MEASUREMENT = "sv_SE.UTF-8";
-        LC_MONETARY = "sv_SE.UTF-8";
-        LC_NAME = "sv_SE.UTF-8";
-        LC_NUMERIC = "sv_SE.UTF-8";
-        LC_PAPER = "sv_SE.UTF-8";
-        LC_TELEPHONE = "sv_SE.UTF-8";
-        LC_TIME = "sv_SE.UTF-8";
-      };
 
       nixpkgs.config.allowUnfree = true;
       nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -35,20 +23,14 @@
     };
 
   flake.modules.darwin.common =
-    { lib, pkgs, ... }:
+    { lib, ... }:
     {
       system.primaryUser = lib.mkDefault "liexner";
 
       nix.settings.experimental-features = [ "nix-command" "flakes" ];
       system.stateVersion = 6;
 
-      nixpkgs.config.allowUnfree = true; # claude-code, via home-manager's useGlobalPkgs
-
-      environment.systemPackages = with pkgs; [
-        git
-        just
-        nixos-anywhere
-      ];
+      nixpkgs.config.allowUnfree = true;
     };
 
   # User tools for every machine; applied through home-manager.sharedModules
@@ -56,8 +38,14 @@
     { pkgs, ... }:
     {
       home.stateVersion = "25.05";
-      imports = [ config.flake.modules.homeManager.neovim ];
+      imports = [
+        config.flake.modules.homeManager.neovim
+        config.flake.modules.homeManager.helix
+      ];
       home.packages = with pkgs; [
+        git
+        just
+        nixos-anywhere
         lazygit
         fastfetch
         gh
