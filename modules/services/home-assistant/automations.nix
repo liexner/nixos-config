@@ -38,13 +38,13 @@
         event_type = "zha_event";
         event_data = { device_ieee = "d4:48:67:ff:fe:d3:64:f6"; inherit command; };
       }) [ "on" "off" ];
-      actions = [{
-        action = "notify.mobile_app_pixel_9_pro_xl";
+      actions = map (action: {
+        inherit action;
         data = {
           message = "Door {{ 'opened' if trigger.event.data.command == 'on' else 'closed' }} at {{ now().strftime('%H:%M') }}";
           data = { priority = "high"; ttl = 0; }; # bypass Android doze batching
         };
-      }];
+      }) [ "notify.mobile_app_pixel_9_pro_xl" "notify.mobile_app_pixel7pro" ];
     }
     {
       alias = "Klipper notification";
