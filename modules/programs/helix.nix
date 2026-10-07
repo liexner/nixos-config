@@ -9,6 +9,7 @@
           theme = "tokyonight";
           editor = {
             line-number = "relative";
+            color-modes = true;
             cursor-shape.insert = "bar";
             lsp.display-inlay-hints = true;
           };
