@@ -2,7 +2,7 @@
   flake.modules.nixos.home-assistant = { pkgs, ... }: {
     services.home-assistant = {
       enable = true;
-      extraComponents = [ "default_config" "zha" "met" "matter" ];
+      extraComponents = [ "default_config" "zha" "met" "matter" "samsungtv" ];
       config.homeassistant = { };
       config.default_config = { };
       config.http = {

@@ -47,6 +47,18 @@
       }) [ "notify.mobile_app_pixel_9_pro_xl" "notify.mobile_app_pixel7pro" ];
     }
     {
+      alias = "Stereo follows TV";
+      triggers = [{
+        trigger = "state";
+        entity_id = "media_player.samsungtv";
+        to = [ "on" "off" ]; # ignore unavailable/unknown blips
+      }];
+      actions = [{
+        action = "switch.turn_{{ trigger.to_state.state }}";
+        target.entity_id = "switch.stereo";
+      }];
+    }
+    {
       alias = "Klipper notification";
       mode = "queued";
       triggers = [{
