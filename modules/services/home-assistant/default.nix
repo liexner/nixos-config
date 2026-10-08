@@ -7,7 +7,20 @@
 
       services.home-assistant = {
         enable = true;
-        extraComponents = [ "default_config" "zha" "met" "matter" "samsungtv" ];
+        # dtlssocket 0.2.x fails the DTLS handshake with the TRÅDFRI gateway (handshake_failure); 0.1.19 works
+        package = pkgs.home-assistant.override {
+          packageOverrides = self: super: {
+            dtlssocket = super.dtlssocket.overridePythonAttrs (old: rec {
+              version = "0.1.19";
+              src = self.fetchPypi {
+                pname = "DTLSSocket";
+                inherit version;
+                hash = "sha256-hKwWkQ/K+FTgn2Gs8Pynz/ihuVeO8grqekPPbGK5eDI=";
+              };
+            });
+          };
+        };
+        extraComponents = [ "default_config" "zha" "met" "matter" "samsungtv" "tradfri" ];
         config.homeassistant = { };
         config.default_config = { };
         config.http = {

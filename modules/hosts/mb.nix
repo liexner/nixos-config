@@ -8,6 +8,11 @@
   # shared by all macs
   den.aspects.macbook.darwin = {
     system.defaults.dock.autohide = true;
+
+    homebrew = {
+      enable = true;
+      casks = [ "vorssaint" ];
+    };
   };
 
   den.aspects.loki.includes = [ den.aspects.macbook ];
