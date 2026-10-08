@@ -1,7 +1,10 @@
 {
-  flake.modules.homeManager.helix =
+  den.aspects.helix.homeManager =
     { pkgs, ... }:
     {
+
+      home.packages = [ pkgs.nixd ];
+
       programs.helix = {
         enable = true;
 

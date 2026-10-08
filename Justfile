@@ -1,7 +1,6 @@
 update:
     nix flake update --flake ~/nixos-config
 
-# delete all old generations (system + user + home-manager) and garbage-collect the store
 clean:
     sudo nix-collect-garbage -d
 
@@ -26,4 +25,3 @@ remote host ip:
 
 ed:
     just remote elitedesk elitedesk
-
