@@ -1,6 +1,5 @@
 {
   den.hosts.x86_64-linux.wsl = {
-      hostName = "nixos";
       users.liexner = { };
       wsl.enable = true;
   };

@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, den, ... }:
 let
   shared = {
     nixpkgs.config.allowUnfree = true;
@@ -10,6 +10,7 @@ let
 in
 {
   den.schema.user.classes = lib.mkDefault [ "homeManager" ];
+  den.default.includes = [ den.batteries.hostname ];
 
   den.default.nixos = { pkgs, ... }: {
     imports = [ shared ];
