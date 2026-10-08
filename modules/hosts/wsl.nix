@@ -9,17 +9,19 @@
 
        nixos = { pkgs, ... }: {
           programs.nix-ld.enable = true;
+          programs.fish.enable = true;
+          users.users.liexner.shell = pkgs.fish;
           fonts.packages = [ pkgs.nerd-fonts.jetbrains-mono ];
           environment.systemPackages = with pkgs; [
-            openstackclient github-copilot-cli
+            openstackclient github-copilot-cli wrangler
           ];
         };
 
         provides.to-users.homeManager = { pkgs, ... }: {
               home.sessionPath = [ "$HOME/.local/bin" ];
-              home.packages = [ pkgs.wrangler ];
               programs.bash.enable = true;
               programs.starship.enable = true;
+              programs.fish.enable = true;
             };
 
   };
