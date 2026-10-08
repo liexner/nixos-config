@@ -4,12 +4,11 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    flake-parts = {
-      url = "github:hercules-ci/flake-parts";
-      inputs.nixpkgs-lib.follows = "nixpkgs";
-    };
+    flake-parts.url = "github:hercules-ci/flake-parts";
+    flake-parts.inputs.nixpkgs-lib.follows = "nixpkgs";
 
     import-tree.url = "github:vic/import-tree";
+    den.url = "github:denful/den";
 
     nixos-wsl = {
       url = "github:nix-community/NixOS-WSL";
@@ -49,7 +48,9 @@
     systems = [ "x86_64-linux" "aarch64-darwin" ];
     imports = [
       flake-parts.flakeModules.modules
+      inputs.den.flakeModule
       (import-tree ./modules)
+      (import-tree ./modules2)
     ];
   };
 }
