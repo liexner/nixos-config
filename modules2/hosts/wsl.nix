@@ -1,11 +1,11 @@
 {
-  den.hosts.x86_64-linux.wsl-den = {
+  den.hosts.x86_64-linux.wsl = {
       hostName = "nixos";
       users.liexner = { };
       wsl.enable = true;
   };
 
-  den.aspects.wsl-den = {
+  den.aspects.wsl = {
        wsl.docker-desktop.enable = true;
 
        nixos = { pkgs, ... }: {

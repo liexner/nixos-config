@@ -8,12 +8,12 @@
     ];
 
     user = {
-          description = "Linus";
-          openssh.authorizedKeys.keys = builtins.attrValues (import (self + "/keys.nix")).personal;
+      description = "Linus";
+      openssh.authorizedKeys.keys = builtins.attrValues (import (self + "/keys.nix")).personal;
     };
 
     homeManager = { pkgs, ... }: {
-      home.packages = with pkgs; [ git just lazygit gh ];
+      home.packages = with pkgs; [ git just lazygit gh claude-code ];
     };
   };
 }
