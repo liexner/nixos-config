@@ -4,14 +4,8 @@ update:
 clean:
     sudo nix-collect-garbage -d
 
-wsl:
-    sudo nixos-rebuild switch --flake ~/nixos-config#wsl
-
-m1:
-    sudo darwin-rebuild switch --flake ~/nixos-config#m1
-
-m4:
-    sudo darwin-rebuild switch --flake ~/nixos-config#m4
+switch:
+    sudo nixos-rebuild switch --flake ~/nixos-config
 
 secret name:
     cd secrets && nix run github:ryantm/agenix -- -e {{name}}.age
