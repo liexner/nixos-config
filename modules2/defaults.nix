@@ -3,14 +3,18 @@ let
   shared = {
     nixpkgs.config.allowUnfree = true;
     nix.settings.experimental-features = [ "nix-command" "flakes" ];
-    home-manager.useGlobalPkgs = true;
-    home-manager.useUserPackages = true;
-    home-manager.backupFileExtension = "backup";
   };
+
+    hm.home-manager = {
+       useGlobalPkgs = true;
+       useUserPackages = true;
+       backupFileExtension = "backup";
+     };
 in
 {
   den.schema.user.classes = lib.mkDefault [ "homeManager" ];
   den.default.includes = [ den.batteries.hostname ];
+  den.schema.hm-host.includes = [ { nixos = hm; darwin = hm; } ];
 
   den.default.nixos = { pkgs, ... }: {
     imports = [ shared ];

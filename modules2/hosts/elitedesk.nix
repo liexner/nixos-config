@@ -2,7 +2,7 @@
 {
 
   den.hosts.x86_64-linux.elitedesk = {
-    users.liexner = { };
+    users.liexner.classes = [ "user" ];
   };
 
   den.aspects.elitedesk = {
