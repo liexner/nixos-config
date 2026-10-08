@@ -1,8 +1,8 @@
 { den, ... }:
 {
   den.hosts.aarch64-darwin = {
-    m1.users.liexner = { };
-    m4.users.liexner = { };
+    loki.users.liexner = { };
+    odin.users.liexner = { };
   };
 
   # shared by all macs
@@ -10,6 +10,6 @@
     system.defaults.dock.autohide = true;
   };
 
-  den.aspects.m1.includes = [ den.aspects.macbook ];
-  den.aspects.m4.includes = [ den.aspects.macbook ];
+  den.aspects.loki.includes = [ den.aspects.macbook ];
+  den.aspects.odin.includes = [ den.aspects.macbook ];
 }

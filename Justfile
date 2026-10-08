@@ -5,7 +5,7 @@ clean:
     sudo nix-collect-garbage -d
 
 switch:
-    sudo nixos-rebuild switch --flake ~/nixos-config
+    sudo {{ if os() == "macos" { "darwin" } else { "nixos" } }}-rebuild switch --flake ~/nixos-config
 
 secret name:
     cd secrets && nix run github:ryantm/agenix -- -e {{name}}.age
