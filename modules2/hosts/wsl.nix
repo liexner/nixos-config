@@ -5,7 +5,7 @@
       wsl.enable = true;
   };
 
-  den.aspects.wsl-den.nixos = {
+  den.aspects.wsl-den = {
        wsl.docker-desktop.enable = true;
 
        nixos = { pkgs, ... }: {
@@ -15,6 +15,13 @@
             openstackclient github-copilot-cli
           ];
         };
+
+        provides.to-users.homeManager = { pkgs, ... }: {
+              home.sessionPath = [ "$HOME/.local/bin" ];
+              home.packages = [ pkgs.wrangler ];
+              programs.bash.enable = true;
+              programs.starship.enable = true;
+            };
 
   };
 }

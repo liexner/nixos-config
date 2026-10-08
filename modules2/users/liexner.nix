@@ -1,9 +1,10 @@
-{ den, ... }:
+{ den, self, ... }:
 {
   den.aspects.liexner = {
     includes = [
-      den.batteries.define-user   # username + home dir (nixos/darwin/hm)
-      den.batteries.primary-user  # wheel, wsl.defaultUser, darwin primaryUser
+      den.batteries.define-user
+      den.batteries.primary-user
+      den.aspects.helix
     ];
 
     user = {
