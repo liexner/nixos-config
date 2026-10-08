@@ -19,16 +19,7 @@
             ":insert-output lazygit"
             ":buffer-close!"
             ":redraw"
-          ];
-
-          # Interactive shell; redirect to the tty so output isn't captured into the buffer. Exit returns to helix.
-          keys.normal.C-t = [
-            ":new"
-            ":insert-output $SHELL -i </dev/tty >/dev/tty 2>&1"
-            ":buffer-close!"
-            ":redraw"
-          ];
-        };
+          ];        };
 
         languages.language = [
           {
