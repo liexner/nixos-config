@@ -6,7 +6,7 @@
   };
 
   den.aspects.elitedesk = {
-      #includes = with den.aspects; [ tailscale microbin home-assistant ];
+      includes = with den.aspects; [ home-assistant microbin tailscale ];
 
       nixos = { pkgs, ... }: {
         imports = [ inputs.disko.nixosModules.disko ];
