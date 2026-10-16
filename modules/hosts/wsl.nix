@@ -14,6 +14,7 @@
           fonts.packages = [ pkgs.nerd-fonts.jetbrains-mono ];
           environment.systemPackages = with pkgs; [
             openstackclient github-copilot-cli wrangler
+            k3d kubernetes-helm kubectl # one-off: helm-core-system test cluster
           ];
         };
 
