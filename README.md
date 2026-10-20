@@ -59,4 +59,4 @@ just secrets   # sops secrets/secrets.yaml
 ```
 
 New or reinstalled server: add `ssh-to-age < /etc/ssh/ssh_host_ed25519_key.pub`
-to `.sops.yaml`, then `sops updatekeys secrets/secrets.yaml`.
+to `.sops.yaml`, then `just rekey`.
