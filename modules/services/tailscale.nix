@@ -1,12 +1,15 @@
-{ inputs, self, ... }:
+{ den, ... }:
 {
-  den.aspects.tailscale.nixos = { config, ... }: {
-    imports = [ inputs.agenix.nixosModules.default ];
-    age.secrets.tailscale.file = self + "/secrets/tailscale.age";
-    services.tailscale = {
-      enable = true;
-      authKeyFile = config.age.secrets.tailscale.path;
-      openFirewall = true;
+  den.aspects.tailscale = {
+    includes = [ den.aspects.secrets ];
+
+    nixos = { config, ... }: {
+      sops.secrets.tailscale = { };
+      services.tailscale = {
+        enable = true;
+        authKeyFile = config.sops.secrets.tailscale.path;
+        openFirewall = true;
+      };
     };
   };
 }

@@ -1,0 +1,6 @@
+creation_rules:
+  - path_regex: secrets/secrets\.yaml$
+    key_groups:
+      - age:
+          - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAuublTf81/Q8xaEIftWaG6aC5EyQxJczAQVAx+dsHD2 # personal (Bitwarden), same as liexner.nix
+          - age1r6anyzm78c367lx5gyev932kytzhqce3dqyj9fc4hsuek5szq37q9g8ttr # elitedesk: ssh-to-age < /etc/ssh/ssh_host_ed25519_key.pub

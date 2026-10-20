@@ -1,16 +1,14 @@
-{ den, inputs, self, ... }:
+{ den, ... }:
 {
   den.aspects.microbin = {
-    includes = [ den.aspects.caddy ];
+    includes = [ den.aspects.caddy den.aspects.secrets ];
 
     nixos = { config, ... }: {
-      imports = [ inputs.agenix.nixosModules.default ];
-
-      age.secrets.microbin.file = self + "/secrets/microbin.age";
+      sops.secrets.microbin = { };
 
       services.microbin = {
         enable = true;
-        passwordFile = config.age.secrets.microbin.path;
+        passwordFile = config.sops.secrets.microbin.path;
         settings = {
           MICROBIN_BIND = "127.0.0.1";
           MICROBIN_PORT = 8080;

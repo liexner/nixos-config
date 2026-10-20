@@ -1,25 +1,5 @@
 {
   "nodes": {
-    "agenix": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1790734419,
-        "narHash": "sha256-n7wew722m1OTBT9DOIMxNX/NF4zfsSUABAO5eW3wikE=",
-        "owner": "ryantm",
-        "repo": "agenix",
-        "rev": "3daa710894355fa2fad8243380af373a2b4046ef",
-        "type": "github"
-      },
-      "original": {
-        "owner": "ryantm",
-        "repo": "agenix",
-        "type": "github"
-      }
-    },
     "darwin": {
       "inputs": {
         "nixpkgs": [
@@ -167,14 +147,34 @@
     },
     "root": {
       "inputs": {
-        "agenix": "agenix",
         "darwin": "darwin",
         "den": "den",
         "disko": "disko",
         "home-manager": "home-manager",
         "import-tree": "import-tree",
         "nixos-wsl": "nixos-wsl",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "sops-nix": "sops-nix"
+      }
+    },
+    "sops-nix": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1792056300,
+        "narHash": "sha256-YU1LjDe1o2Ymg5zEiCHbmMXLkDCtxHQRiVqZ3nC5GGk=",
+        "owner": "Mic92",
+        "repo": "sops-nix",
+        "rev": "44931708c62937c2b1bf7953902989fa5bb9ee1b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Mic92",
+        "repo": "sops-nix",
+        "type": "github"
       }
     }
   },

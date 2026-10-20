@@ -50,9 +50,13 @@ nixos-anywhere --flake .#elitedesk nixos@<ip>
 
 ### Secrets
 
-Secrets are managed with [agenix](https://github.com/ryantm/agenix); keys
-live in `keys.nix` and recipients are declared in `secrets/secrets.nix`.
+All secrets live in one sops file, `secrets/secrets.yaml`, encrypted to the
+personal ed25519 key (in Bitwarden) and each server's SSH host key (see `.sops.yaml`).
+Aspects that need a secret include `den.aspects.secrets` and declare `sops.secrets.<name>`.
 
 ```sh
-just "secret name"   # cd secrets && nix run github:ryantm/agenix -- -e <name>.age
+just secrets   # sops secrets/secrets.yaml
 ```
+
+New or reinstalled server: add `ssh-to-age < /etc/ssh/ssh_host_ed25519_key.pub`
+to `.sops.yaml`, then `sops updatekeys secrets/secrets.yaml`.
