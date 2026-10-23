@@ -24,6 +24,8 @@
         kubernetes-helm
         kubectl # one-off: helm-core-system test cluster
         fluxcd
+        k9s
+        oxker
       ];
     };
 
