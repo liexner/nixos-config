@@ -56,6 +56,19 @@ in
       }];
     }
     {
+      alias = "Sunlamp controller";
+      triggers = map (command: {
+        trigger = "event";
+        event_type = "zha_event";
+        event_data = { device_ieee = "b4:35:22:ff:fe:0b:06:24"; inherit command; };
+      }) [ "on" "off" ];
+      actions = [{
+        "if" = "{{ trigger.event.data.command == 'on' }}";
+        "then" = [{ action = "scene.turn_on"; target.entity_id = "scene.cozy_orange"; }];
+        "else" = [{ action = "light.turn_off"; target.entity_id = "light.sunlamp"; }];
+      }];
+    }
+    {
       alias = "Door notification";
       mode = "queued"; # quick open/close would otherwise be dropped as "Already running"
       triggers = map (command: {
