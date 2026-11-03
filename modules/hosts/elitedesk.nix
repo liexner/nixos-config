@@ -6,7 +6,7 @@
   };
 
   den.aspects.elitedesk = {
-      includes = with den.aspects; [ ddns home-assistant microbin tailscale ];
+      includes = with den.aspects; [ ddns home-assistant microbin pocket-id tailscale ];
 
       nixos = { pkgs, ... }: {
         imports = [ inputs.disko.nixosModules.disko ];
