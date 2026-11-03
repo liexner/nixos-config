@@ -1,26 +1,13 @@
 { den, ... }:
 {
   den.aspects.home-assistant = {
-    includes = [ den.aspects.caddy ];
+    includes = [ den.aspects.caddy den.aspects.secrets ];
 
-    nixos = { pkgs, ... }: {
+    nixos = { config, ... }: {
 
       services.home-assistant = {
         enable = true;
-        # dtlssocket 0.2.x fails the DTLS handshake with the TRÅDFRI gateway (handshake_failure); 0.1.19 works
-        package = pkgs.home-assistant.override {
-          packageOverrides = self: super: {
-            dtlssocket = super.dtlssocket.overridePythonAttrs (old: rec {
-              version = "0.1.19";
-              src = self.fetchPypi {
-                pname = "DTLSSocket";
-                inherit version;
-                hash = "sha256-hKwWkQ/K+FTgn2Gs8Pynz/ihuVeO8grqekPPbGK5eDI=";
-              };
-            });
-          };
-        };
-        extraComponents = [ "default_config" "zha" "met" "matter" "samsungtv" "tradfri" ];
+        extraComponents = [ "default_config" "zha" "met" "samsungtv" ];
         config.homeassistant = { };
         config.default_config = { };
         config.http = {
@@ -43,18 +30,17 @@
         reverse_proxy localhost:8123
       '';
 
-      services.matter-server.enable = true;
+      # Exposes chosen HA entities to Google Home as a Matter bridge; web UI on :8482
+      sops.secrets.home-assistant-matter-hub = { };
+      services.home-assistant-matter-hub = {
+        enable = true;
+        openFirewall = true;
+        accessTokenFile = config.sops.secrets.home-assistant-matter-hub.path;
+        settings.homeAssistantUrl = "http://localhost:8123";
+      };
 
-      services.matter-server.package = pkgs.python-matter-server.overridePythonAttrs (old: {
-        postPatch = (old.postPatch or "") + ''
-          substituteInPlace matter_server/server/helpers/paa_certificates.py \
-            --replace-fail "        cert = x509.load_pem_x509_certificate(pem_certificate.encode())" \
-            $'        try:\n            cert = x509.load_pem_x509_certificate(pem_certificate.encode())\n        except ValueError:\n            LOGGER.warning("Skipping unparsable PAA cert %s", subject)\n            return False'
-        '';
-      });
-
-      networking.firewall.allowedTCPPorts = [ 8123 ];
-      networking.firewall.allowedUDPPorts = [ 5353 5540 ]; # mDNS, Matter
+      networking.firewall.allowedTCPPorts = [ 8123 8482 ];
+      networking.firewall.allowedUDPPorts = [ 5353 ]; # mDNS
     };
 
 

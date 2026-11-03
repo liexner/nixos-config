@@ -56,32 +56,16 @@ in
       }];
     }
     {
-      alias = "Klaras remote";
-      mode = "restart"; # wheel spams move_to_level, latest wins
-      triggers = [{
+      alias = "Sunlamp controller";
+      triggers = map (command: {
         trigger = "event";
         event_type = "zha_event";
-        event_data.device_ieee = "10:35:97:00:00:18:d7:3a";
-      }];
+        event_data = { device_ieee = "b4:35:22:ff:fe:0b:06:24"; inherit command; };
+      }) [ "on" "off" ];
       actions = [{
-        choose = [
-          {
-            conditions = "{{ trigger.event.data.command == 'on' }}";
-            sequence = [{ action = "light.turn_on"; target.entity_id = "light.klaras_kontorslampa"; }];
-          }
-          {
-            conditions = "{{ trigger.event.data.command == 'off' }}";
-            sequence = [{ action = "light.turn_off"; target.entity_id = "light.klaras_kontorslampa"; }];
-          }
-          {
-            conditions = "{{ trigger.event.data.command == 'move_to_level' }}";
-            sequence = [{
-              action = "light.turn_on";
-              target.entity_id = "light.klaras_kontorslampa";
-              data.brightness = "{{ trigger.event.data.args[0] }}";
-            }];
-          }
-        ];
+        "if" = "{{ trigger.event.data.command == 'on' }}";
+        "then" = [{ action = "scene.turn_on"; target.entity_id = "scene.cozy_orange"; }];
+        "else" = [{ action = "light.turn_off"; target.entity_id = "light.sunlamp"; }];
       }];
     }
     {

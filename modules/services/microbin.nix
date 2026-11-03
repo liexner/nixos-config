@@ -4,7 +4,7 @@
     includes = [ den.aspects.caddy den.aspects.secrets ];
 
     nixos = { config, ... }: {
-      sops.secrets.microbin = { };
+      sops.secrets.microbin.restartUnits = [ "microbin.service" ];
 
       services.microbin = {
         enable = true;
